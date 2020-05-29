@@ -1,11 +1,12 @@
 import React from 'react';
 
+import TodoListItem from '../TodoListItem/TodoListItem';
+
 const TodoList = () => {
-    const items = ['Learn JS and React.js', 'Build app']
     return (
       <ul>
-          <li>{items[0]}</li>
-          <li>{items[1]}</li>
+          <li><TodoListItem /></li>
+          <li>Build amazing app</li>
           <li>Do shoping</li>
         </ul>
     );
