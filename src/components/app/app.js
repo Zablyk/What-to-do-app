@@ -4,10 +4,13 @@ import AppHeader from '../app-header/app-header';
 import SearchPanel from '../search-panel/search-panel';
 import ItemStatusFilter from '../item-status-filter/item-status-filter';
 import TodoList from '../todo-list/todo-list';
+import ItemAddForm from '../item-add-form/item-add-form';
 import './app.css';
 
 
 export default class App extends Component {
+
+  maxId = 100;
 
   state = {
       todoData: [
@@ -17,7 +20,7 @@ export default class App extends Component {
       ]
     };
 
-  deletedItemHandler = (id) => {
+  deleteItemHandler = (id) => {
       this.setState(({todoData}) => {
         const idx = todoData.findIndex((el) => el.id === id);
         const newArray = [
@@ -29,7 +32,30 @@ export default class App extends Component {
           todoData: newArray
         };
     });
-  };  
+  };
+  
+  addItemHandler = (text) => {
+    const newItem = {
+      label: text,
+      important: false,
+      id: this.maxId + 1
+    };
+    
+    this.setState = (( {todoData} ) => {
+      const newArr = [...todoData, newItem];
+      return {
+        todoData: newArr
+      };
+    });
+  };
+
+  onToggleImportant = (id) => {
+    console.log('Toggle Important', id);
+  };
+
+  onToggleDone = (id) => {
+    console.log('Toggle Done', id);
+  };
 
   render() {
     return (
@@ -39,10 +65,12 @@ export default class App extends Component {
           <SearchPanel />
           <ItemStatusFilter />
         </div>
-  
         <TodoList
           todos={ this.state.todoData }
-          onDeleted={this.deletedItemHandler} />
+          onDeleted={ this.deleteItemHandler }
+          onToggleImportant={ this.onToggleImportant }
+          onToggleDone={ this.onToggleDone } />
+      <ItemAddForm addItem={ this.addItemHandler } />
       </div>
     );
     };
