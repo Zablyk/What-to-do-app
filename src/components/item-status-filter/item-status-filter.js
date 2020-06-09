@@ -9,9 +9,12 @@ export default class ItemStatusFilter extends Component {
         <button type="button"
                 className="btn btn-info">All</button>
         <button type="button"
-                className="btn btn-outline-secondary">Active</button>
+                className="btn btn-outline-secondary"
+                onClick={this.props.showActiveItems}
+                  >Active</button>
         <button type="button"
-                className="btn btn-outline-secondary">Done</button>
+                className="btn btn-outline-secondary"
+                onClick={this.props.showDoneItems}>Done</button>
       </div>
     );
   };

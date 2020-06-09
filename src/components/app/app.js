@@ -81,12 +81,38 @@ export default class App extends Component {
     });
   };
 
+
+
   onToggleDone = (id) => {
     this.setState(({todoData}) => {
       return {
         todoData: this.toggleProperty(todoData, id, 'done')
       };
     });
+  };
+
+  onShowDoneItems = () => {
+    this.setState(({todoData}) => {
+      const doneItem = todoData
+                        .filter((el) => el.done)  
+      const newArray = doneItem;
+
+      return {
+       todoData: newArray
+      };
+  });
+  };
+
+  onShowActiveItems = () => {
+    this.setState(({todoData}) => {
+      const activeItem = todoData
+                        .filter((el) => !el.done)  
+      const newArray = activeItem;
+
+      return {
+       todoData: newArray
+      };
+  });
   };
 
   render() {
@@ -99,7 +125,9 @@ export default class App extends Component {
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel />
-          <ItemStatusFilter />
+          <ItemStatusFilter
+            showDoneItems = {this.onShowDoneItems}
+            showActiveItems={this.onShowActiveItems} />
         </div>
         <TodoList
           todos={ todoData }
