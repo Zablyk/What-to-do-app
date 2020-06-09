@@ -17,7 +17,8 @@ export default class App extends Component {
         this.createTodoItem('Drink Coffee'),
         this.createTodoItem('Make Awesome App'),
         this.createTodoItem('Have a lunch')
-      ]
+      ],
+      term: ''
     };
 
     createTodoItem (label) {
@@ -27,7 +28,11 @@ export default class App extends Component {
       done: false,
       id: this.maxId++
     };
-  };  
+  };
+  
+  onSearchHandler = (event) => {
+    console.log(event.target.value);
+  };
 
   deleteItemHandler = (id) => {
       this.setState(({todoData}) => {
@@ -124,7 +129,8 @@ export default class App extends Component {
       <div className="todo-app">
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel 
+            onSearchChange={this.onSearchHandler}/>
           <ItemStatusFilter
             showDoneItems = {this.onShowDoneItems}
             showActiveItems={this.onShowActiveItems} />
