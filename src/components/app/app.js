@@ -20,7 +20,7 @@ export default class App extends Component {
       ]
     };
 
-    createTodoItem(label) {
+    createTodoItem (label) {
     return {
       label,
       important: false,
@@ -45,9 +45,13 @@ export default class App extends Component {
   
   addItemHandler = (text) => {
     const newItem = this.createTodoItem(text);
-    
-    this.setState = (( {todoData} ) => {
-      const newArr = [...todoData, newItem];
+   
+    this.setState (({todoData}) => {
+      const newArr = [
+        ...todoData,
+        newItem
+      ];
+
       return {
         todoData: newArr
       };
@@ -102,6 +106,7 @@ export default class App extends Component {
           onDeleted={ this.deleteItemHandler }
           onToggleImportant={ this.onToggleImportant }
           onToggleDone={ this.onToggleDone } />
+
       <ItemAddForm addItem={ this.addItemHandler } />
       </div>
     );
