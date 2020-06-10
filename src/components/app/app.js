@@ -30,9 +30,10 @@ export default class App extends Component {
     };
   };
   
-  onSearchHandler = (event) => {
-    console.log(event.target.value);
+  onSearchHandler = (term) => {
+    this.setState({term: term});
   };
+  
 
   deleteItemHandler = (id) => {
       this.setState(({todoData}) => {
@@ -63,7 +64,7 @@ export default class App extends Component {
     });
   };
 
-  toggleProperty(arr, id, propName) {
+  toggleProperty (arr, id, propName) {
     const idx = arr.findIndex((el) => el.id === id);
       //1. update old object
       const oldItem = arr[idx];
@@ -105,7 +106,7 @@ export default class App extends Component {
       return {
        todoData: newArray
       };
-  });
+    });
   };
 
   onShowActiveItems = () => {
@@ -117,11 +118,24 @@ export default class App extends Component {
       return {
        todoData: newArray
       };
-  });
+    });
+  };
+
+  search (items, term) {
+    if ( term.length === 0 ) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.label
+           .toLowerCase()
+           .indexOf(term.toLowerCase()) > -1;
+    });
   };
 
   render() {
-    const { todoData } = this.state;
+    const { todoData, term } = this.state;
+    const visibleItem = this.search(todoData, term);
     const doneCount = todoData
                         .filter((el) => el.done).length;
     const todoCount = todoData.length - doneCount;                    
@@ -136,7 +150,7 @@ export default class App extends Component {
             showActiveItems={this.onShowActiveItems} />
         </div>
         <TodoList
-          todos={ todoData }
+          todos={ visibleItem }
           onDeleted={ this.deleteItemHandler }
           onToggleImportant={ this.onToggleImportant }
           onToggleDone={ this.onToggleDone } />
